@@ -1,15 +1,14 @@
 const express = require('express')
 const app = express()
-// const router  = express.Router()
 const router = require('./routes/registration')
 require('dotenv').config()
-const mysql = require('mysql')
 const bodyParser = require('body-parser')
+const {verifyToken} = require('./helper/helper')
 
 // parse application/json
 app.use(bodyParser.json())
 app.use('/api', router) 
-
+app.use(verifyToken)
 
 
 //Up the server

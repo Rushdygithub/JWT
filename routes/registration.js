@@ -1,10 +1,10 @@
 const express = require('express')
 const router  = express.Router()
-const register = require('../controllers/registration')
-
+const {register,login} = require('../controllers/registration')
+const {verifyToken} = require('../helper/helper')
 
 //test router
-router.get('/test', (req,res) => {
+router.get('/test', verifyToken, (req,res) => {
     try{
         res.send("done")   
     } catch (error) {
@@ -13,8 +13,12 @@ router.get('/test', (req,res) => {
 })
 
 //registration route
-router.post('/register', (req,res)=> {
-    register(req,res)
+router.post('/register', async (req,res)=> {
+    await register(req,res)
+})
+
+router.post('/login', async (req,res)=> {
+    await login(req,res)
 })
 
 
